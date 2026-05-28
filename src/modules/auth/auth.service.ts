@@ -1,4 +1,5 @@
 import { pool } from "../../db/index.js";
+import AppError from "../../utils/AppError.js";
 import type { LoginSchema } from "../../zod/auth.zod.js";
 import { type User } from "./auth.repository.js";
 import bcrypt from "bcryptjs";
@@ -9,19 +10,22 @@ const registerUser = async () => {};
 
 const adminLogin = async (credentials: LoginSchema) => {
     const { email, password } = credentials;
-
     const adminExists = await pool.query(
         `
         SELECT * FROM admins WHERE email = $1
         `,
         [email],
     );
-    if (adminExists.rows.length === 0) throw new Error("Admin not found");
+    if (adminExists.rows.length === 0) {
+        throw new AppError(404, "Admin not found");
+    }
     const admin = adminExists.rows[0];
     const isPasswordValid = await bcrypt.compare(password, admin.password);
-    if (!isPasswordValid) throw new Error("Invalid password");
-    const { password: adminPassword, ...rest } = admin;
-    return rest;
+    if (!isPasswordValid) {
+        throw new AppError(401, "Invalid password");
+    }
+    delete admin.password;
+    return admin;
 };
 
 const createAdmin = async () => {
