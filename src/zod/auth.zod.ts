@@ -8,25 +8,6 @@ const adminSchema = z.object({
     password: z.string().min(6, "Password must be at least 6 characters long"),
 });
 
-`   id SERIAL PRIMARY KEY,
-         full_name VARCHAR(255) NOT NULL,
-         full_name_bangla VARCHAR(255) NOT NULL,
-         fathers_name VARCHAR(255) NOT NULL,
-         mothers_name VARCHAR(255) NOT NULL,
-         present_address VARCHAR(255) NOT NULL,
-         permanent_address VARCHAR(255) NOT NULL,
-         contact_no VARCHAR(255) NOT NULL,
-         guardians_number VARCHAR(255) NOT NULL,
-         institution VARCHAR(255) NOT NULL,
-         ssc_batch INT,
-         password VARCHAR(255) NOT NULL,
-         blood_group VARCHAR(255) NOT NULL,
-         status VARCHAR(255) NOT NULL CHECK(status IN ('active', 'inactive', 'suspended')),
-         obligation_start_date TIMESTAMP NOT NULL,
-         status_in_foundation VARCHAR(255) NOT NULL,
-         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-         updated_at TIMESTAMP`;
-
 const registerSchema = z.object({
     full_name: z
         .string()
