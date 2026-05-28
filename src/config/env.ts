@@ -16,5 +16,5 @@ const verifyConfig = () => {
         databaseConnectionString: databaseConnectionString,
     };
 };
-
-export default verifyConfig();
+const config = verifyConfig();
+export default config;
