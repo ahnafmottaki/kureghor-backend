@@ -9,7 +9,7 @@ export const register = async (req: Request, res: Response) => {};
 export const adminLogin = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
         const credentials: LoginSchema = req.body;
-        const admin = await authService.adminLogin(req.body);
+        const admin = await authService.adminLogin(credentials);
         return res.json({
             success: true,
             message: "login successful",

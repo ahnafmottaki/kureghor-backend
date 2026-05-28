@@ -1,5 +1,6 @@
 import express from "express";
 import authRouter from "./modules/auth/auth.route.js";
+import errorMiddleware from "./middlewares/errorMiddleware.js";
 const app = express();
 
 app.use(express.json());
@@ -13,5 +14,7 @@ app.get("/", (req, res) => {
         message: "Kureghor Foundation Bakend",
     });
 });
+
+app.use(errorMiddleware);
 
 export default app;
